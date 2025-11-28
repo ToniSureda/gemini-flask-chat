@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Flask](https://img.shields.io/badge/Framework-Flask-green)
 ![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-orange)
-![Security](https://img.shields.io/badge/Security-SSL%2FjTLS-red)
+![Security](https://img.shields.io/badge/Security-SSL%2FTLS-red)
 
 Una interfaz web minimalista para interactuar con los modelos de Inteligencia Artificial **Google Gemini**. Desarrollada con **Flask** (Backend) y **Vanilla JS** (Frontend), implementando comunicación asíncrona y gestión de estados de carga.
 
