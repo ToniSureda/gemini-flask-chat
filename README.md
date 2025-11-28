@@ -10,14 +10,12 @@ Una interfaz web minimalista para interactuar con los modelos de Inteligencia Ar
 ## 📋 Características
 
 * **Integración API:** Conexión directa con `gemini-2.0-flash-lite` (o modelos compatibles) usando la SDK de Google.
-* **Interfaz Reactiva:** Chat fluido sin recargas de página (AJAX/Fetch API).
-* **Diseño Profesional:** CSS moderno con modo oscuro, animaciones de entrada y estados de carga.
 * **Seguridad:** Gestión de credenciales mediante variables de entorno y soporte para HTTPS local.
 
 ## 🛠️ Stack Tecnológico
 
 * **Backend:** Python, Flask.
-* **Frontend:** HTML5, CSS3, JavaScript (ES6+).
+* **Frontend:** HTML5, CSS3, JavaScript.
 * **IA:** Google Generative AI (Gemini API).
 
 ## 🚀 Instalación y Despliegue Local
@@ -51,7 +49,7 @@ Sigue estos pasos para ejecutar el proyecto en tu máquina:
       geminiApi="TU_API_KEY_AQUI"
       ```
 
-## 🔒 Configuración SSL (HTTPS Local)
+## 🔒 Configuración SSL 
 
 Para habilitar características modernas del navegador o simular un entorno de producción, puedes generar certificados autofirmados.
 
