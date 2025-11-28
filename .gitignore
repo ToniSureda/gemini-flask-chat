@@ -1,0 +1,16 @@
+# Seguridad: Ignorar variables de entorno
+.env
+.env.local
+
+# Python cache y compilados
+__pycache__/
+*.py[cod]
+venv/
+env/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Certificados SSL locales (si los usaste)
+*.pem

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAT CON GEMINI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<!-- Contenedor principal del chat: muestra los mensajes y el formulario para enviar texto al modelo Gemini -->
+
+    <div class="chat-wrapper">
+        <h1 class="chat-title">Chat con Gemini</h1>
+        <div id="chat-container" class="chat-container">
+        </div>
+
+        <form id="chat-form" class="chat-form">
+            <input type="text" id="user_input" class="chat-input" placeholder="Escribe tu mensaje aquí..." autocomplete="off" required>
+            <button id="send-button" class="chat-send" type="submit">Enviar</button>
+        </form>
+    </div>
+
+<script>
+// --- Referencias al DOM (Las cargamos en cache) ---
+const chatForm = document.getElementById('chat-form');
+const userInput = document.getElementById('user_input');
+const chatContainer = document.getElementById('chat-container');
+const sendButton = document.getElementById('send-button'); // Referencia al botón para bloquearlo
+
+/**
+ * Crea un elemento visual de mensaje en el chat.
+ * * @param {string} messageText - El contenido del mensaje.
+ * @param {string} sender - Clase CSS ('user' o 'bot').
+ * @returns {HTMLElement} - Devuelve el DIV creado para poder modificarlo después.
+ */
+function addMessage(messageText, sender = 'user') {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', sender);
+    messageElement.textContent = messageText;
+    
+    chatContainer.appendChild(messageElement);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+    // Retornamos el elemento creado
+    return messageElement;
+}
+
+// --- Lógica Principal ---
+chatForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    const userText = userInput.value.trim();
+    if (!userText) return;
+
+    // 1. UI: Mostrar mensaje de usuario y limpiar input
+    addMessage(userText, 'user');
+    userInput.value = '';
+
+    // Bloquear interfaz mientras se espera respuesta
+    userInput.disabled = true;
+    sendButton.disabled = true;
+
+    // 2. UI: Mostrar "Escribiendo..." y guardar la referencia
+    const loadingBubble = addMessage('Gemini está escribiendo...', 'bot');
+
+    try {
+        // 3. Petición al Backend
+        const response = await fetch('/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: userText })
+        });
+
+        // Verificar si el servidor respondió con error (404, 500, etc.)
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // 4. Actualizar la burbuja usando la referencia directa
+        loadingBubble.textContent = data.response || 'Sin respuesta del modelo.';
+
+    } catch (error) {
+        console.error("Fallo en la operación:", error);
+        // Actualizamos la misma burbuja para mostrar el error
+        loadingBubble.textContent = 'Error: No se pudo conectar con el servidor.';
+        loadingBubble.classList.add('error-message'); // Opcional: para estilizar en rojo
+    } finally {
+        // Desbloquear la interfaz 
+        userInput.disabled = false;
+        sendButton.disabled = false;
+        userInput.focus(); // Devolver el foco para seguir escribiendo
+    }
+});
+</script>
+
+
+</body>
+</html>
