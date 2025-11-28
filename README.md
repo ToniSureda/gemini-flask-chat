@@ -5,7 +5,7 @@
 ![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-orange)
 ![Security](https://img.shields.io/badge/Security-SSL%2FTLS-red)
 
-Una interfaz web minimalista para interactuar con los modelos de Inteligencia Artificial **Google Gemini**. Desarrollada con **Flask** (Backend) y **Vanilla JS** (Frontend), implementando comunicación asíncrona y gestión de estados de carga.
+Una interfaz web minimalista para interactuar con los modelos de Inteligencia Artificial **Google Gemini**. Desarrollada con **Flask** y **Vanilla JS**, implementando comunicación asíncrona y gestión de estados de carga.
 
 ## 📋 Características
 
